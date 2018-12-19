@@ -4,28 +4,13 @@
       "url": "https://username:password@git.mdbootstrap.com/mdb/react/re-pro.git",
       "referenceBranch": "dev",
       "workingBranch": "auto-build-test",
-      "filesToEdit": [
-        "README.txt",
-        "README.md",
-        "package.json"
-      ]
+      "filesToEdit": ["README.txt", "README.md", "package.json"]
     },
     "react-demo": {
       "url": "https://username:password@git.mdbootstrap.com/mdb/react/react-demo.git",
       "referenceBranch": "master",
       "workingBranch": "auto-version-update",
-      "filesToEdit": [
-        "./README.txt",
-        "./package.json"
-      ],
-      "filesToRemove": [
-        "./pages",
-        "./App.js",
-        "./App.test.js",
-        "./logo.svg",
-        "./Routes.js",
-        "./registerServiceWorker.js"
-      ],
+      "filesToEdit": ["README.txt", "package.json"],
       "filesToCopy": [
         "./pages",
         "./App.js",

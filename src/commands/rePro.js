@@ -9,47 +9,46 @@ const deleteFiles = require('../helpers/deleteFiles');
 const path = require('path');
 const { RE_PRO } = require('../constans/packages-types');
 
-const rePro = async ({ version, lastVersionNumber}) => {
-    const baseRepoName = "re-pro";
-    const targetRepoName = "react-demo"
+const rePro = async ({ version, lastVersionNumber }) => {
+  const baseRepoName = 're-pro';
+  const targetRepoName = 'react-demo';
 
-    const baseRepoPath = getPathToRepo(baseRepoName);
-    const baseRepoDocsPath = path.resolve(baseRepoPath, 'docs')
+  const baseRepoPath = getPathToRepo(baseRepoName);
+  const baseRepoDocsPath = path.join(baseRepoPath, 'docs');
 
-    const targetRepoPath = getPathToRepo(targetRepoName);
-    const targetRepoSrcPath = path.resolve(targetRepoPath, 'src')
+  const targetRepoPath = getPathToRepo(targetRepoName);
+  const targetRepoSrcPath = path.join(targetRepoPath, 'src');
 
-    console.log('target repo path', targetRepoPath)
+  const baseRepoFilesToEdit = repositories[baseRepoName].filesToEdit;
+  const targetRepoFilesToEdit = repositories[targetRepoName].filesToEdit;
+  const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
 
+  replaceStringInFile(
+    baseRepoFilesToEdit,
+    baseRepoPath,
+    lastVersionNumber,
+    version
+  );
 
-    const baseRepoFilesToEdit = repositories[baseRepoName].filesToEdit;
-    const targetRepoFilesToEdit = repositories[targetRepoName].filesToEdit;
-    const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
+  build(baseRepoPath);
 
-    replaceStringInFile(baseRepoFilesToEdit, baseRepoPath, lastVersionNumber, version);
+  const lastTgzPackage = searchFileByExtension(targetRepoPath, '.tgz');
+  lastTgzPackage && deleteFiles(lastTgzPackage, targetRepoPath);
 
-    build(baseRepoPath);
+  let newTgzPackage = searchFileByExtension(baseRepoPath, '.tgz');
+  copyFiles(newTgzPackage, baseRepoPath, targetRepoPath);
+  deleteFiles(newTgzPackage, baseRepoPath);
 
-    const lastTgzPackage = searchFileByExtension(targetRepoPath, '.tgz');
-    lastTgzPackage && deleteFiles(lastTgzPackage, targetRepoPath);
+  replaceStringInFile(
+    targetRepoFilesToEdit,
+    targetRepoPath,
+    lastVersionNumber,
+    version
+  );
 
-    let newTgzPackage = searchFileByExtension(baseRepoPath, '.tgz');
-    copyFiles(newTgzPackage, baseRepoPath, targetRepoPath);
-    deleteFiles(newTgzPackage, baseRepoPath);
+  copyFiles(targetRepoFilesToCopy, baseRepoDocsPath, targetRepoSrcPath);
 
-    replaceStringInFile(targetRepoFilesToEdit, targetRepoPath, lastVersionNumber, version);
-
-
-    copyFiles(targetRepoFilesToCopy, baseRepoDocsPath, targetRepoSrcPath);
-
-    await createZip(baseRepoPath, RE_PRO);
-
-
-    /*
-
-
-    */
-
-}
+  await createZip(targetRepoName, RE_PRO);
+};
 
 module.exports = rePro;
