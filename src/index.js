@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const mdbpack = require('commander');
+const wielkaMaszynoPakujaca = require('commander');
 const { version } = require('../package.json');
 
 const setup = require('./commands/setup');
@@ -11,46 +11,46 @@ const reFree = require('./commands/reFree');
 const reAdmin = require('./commands/reAdmin');
 const reBoundle = require('./commands/reBoundle');
 
-mdbpack.version(version);
+wielkaMaszynoPakujaca.version(version);
 
-mdbpack
+wielkaMaszynoPakujaca
   .command('setup')
   .description('run a wizard to assist you with creating a setup')
   .action(setup);
 
-mdbpack
+wielkaMaszynoPakujaca
   .command('update')
   .description('update avaliable repositories')
   .action(update);
 
-mdbpack
+wielkaMaszynoPakujaca
   .command('pack')
   .description('create all packages automaticly')
   .action(pack);
 
-mdbpack
+wielkaMaszynoPakujaca
   .command('rePro')
   .description('creates MDB-React-Pro-npm package')
   .action(rePro);
 
-mdbpack
+wielkaMaszynoPakujaca
   .command('reFree')
   .description('creates MDB-React-Free-npm package')
   .action(reFree);
 
-mdbpack
+wielkaMaszynoPakujaca
   .command('reAdmin')
   .description('creates MDB-React-Admin-Pro package')
   .action(reAdmin);
 
-mdbpack
+wielkaMaszynoPakujaca
   .command('reBoundle')
   .description('creates MDB-React-Small-Bundle package')
   .action(reBoundle);
 
-mdbpack.command('*').action(() => mdbpack.help());
+wielkaMaszynoPakujaca.command('*').action(() => wielkaMaszynoPakujaca.help());
 
-mdbpack.parse(process.argv);
+wielkaMaszynoPakujaca.parse(process.argv);
 if (!process.argv.slice(2).length) {
   mdbpack.help();
 }
