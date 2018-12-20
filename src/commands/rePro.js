@@ -30,7 +30,7 @@ const rePro = async ({ version, lastVersionNumber }) => {
     version
   );
 
-  build(baseRepoPath);
+  build(baseRepoPath, true);
 
   const lastTgzPackage = searchFileByExtension(targetRepoPath, '.tgz');
   lastTgzPackage && deleteFiles(lastTgzPackage, targetRepoPath);
