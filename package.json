@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {},
   "bin": {
-    "mdbpack": "./src/index.js"
+    "wielkaMaszynoPakujaca": "./src/index.js"
   },
   "keywords": [],
   "author": "Anna Morawska",
