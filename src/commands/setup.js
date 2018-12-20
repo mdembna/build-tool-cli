@@ -21,12 +21,12 @@ const setup = async () => {
 
   const lastVersionNumber = getLastVersionNumber('re-pro');
 
-  packagesToCreate.includes(RE_PRO) && rePro({ version, lastVersionNumber });
+  packagesToCreate.includes(RE_PRO) && await rePro({ version, lastVersionNumber });
+  packagesToCreate.includes(RE_ADMIN) && await reAdmin({ version, lastVersionNumber });
+  packagesToCreate.includes(RE_BOUNDLE) && await reBoundle();
 
   /*
   packagesToCreate.includes(RE_FREE) && reFree();
-  packagesToCreate.includes(RE_ADMIN) && reAdmin();
-  packagesToCreate.includes(RE_BOUNDLE) && reBoundle();
   */
 };
 
