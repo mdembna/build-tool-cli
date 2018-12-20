@@ -27,9 +27,9 @@ const inquiryAboutSettings = () => {
         {
           name: RE_PRO
         },
-        {
-          name: RE_FREE
-        },
+        // {
+        //   name: RE_FREE
+        // },
         {
           name: RE_ADMIN
         },
@@ -79,7 +79,7 @@ const inquiryAboutSettings = () => {
 
   return prompt(questions).then(answers => {
     if (answers.createAllPackages) {
-      answers.packagesToCreate = [RE_PRO, RE_ADMIN, RE_BOUNDLE, RE_FREE];
+      answers.packagesToCreate = [RE_PRO, RE_ADMIN, RE_BOUNDLE];
     }
     return answers;
   });
