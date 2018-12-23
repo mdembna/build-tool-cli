@@ -19,7 +19,7 @@ const reAdmin = async ({ version, lastVersionNumber }) => {
 
 
     copyFiles(targetRepoFilesToUpdate, path.join(baseRepoPath, 'src'), path.join(targetRepoPath, 'mdbreact', 'src'));
-    fs.copySync(path.join(baseRepoPath, 'dist', 'scss'), path.join(targetRepoName, 'mdbreact', 'dist', 'scss'));
+    fs.copySync(path.join(baseRepoPath, 'dist/scss'), path.join(targetRepoPath, 'mdbreact/dist/scs') );
 
     replaceStringInFile(
         targetRepoFilesToBumpVersion,
@@ -28,7 +28,7 @@ const reAdmin = async ({ version, lastVersionNumber }) => {
         version
     );
 
-    build("mdb-react-admin-pro/mdbreact");
+    build(path.join(targetRepoPath, 'mdbreact'));
 
     await createZip(targetRepoName, RE_ADMIN);
 };
