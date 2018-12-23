@@ -3,7 +3,7 @@
 const wielkaMaszynoPakujaca = require('commander');
 const { version } = require('../package.json');
 
-const setup = require('./commands/setup');
+const start = require('./commands/start');
 const update = require('./commands/update');
 const pack = require('./commands/pack');
 const rePro = require('./commands/rePro');
@@ -14,9 +14,9 @@ const reBoundle = require('./commands/reBoundle');
 wielkaMaszynoPakujaca.version(version);
 
 wielkaMaszynoPakujaca
-  .command('setup')
+  .command('start')
   .description('run a wizard to assist you with creating a setup')
-  .action(setup);
+  .action(start);
 
 wielkaMaszynoPakujaca
   .command('update')
