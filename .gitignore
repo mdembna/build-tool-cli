@@ -1,3 +1,6 @@
 node_modules
 repos/*
+!repos/.repos
+test/*
+!test/.test
 *.zip
