@@ -10,6 +10,36 @@
         "package.json"
       ]
     },
+    "React-Bootstrap-with-Material-Design": {
+      "url": "https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design.git",
+      "referenceBranch": "master",
+      "workingBranch": "auto-build-test",
+      "dirToDelete": [
+        "dist/css/",
+        "docs/pages/pro/",
+        "src/components/pro/"
+      ],
+      "filesToEdit": [
+        "docs/Routes.js",
+        "docs/App.js",
+        "src/index.js",
+        "docs/pages/AddonsNavPage.js",
+        "docs/pages/ComponentsNavPage.js",
+        "docs/pages/AdvancedNavPage.js",
+        "docs/pages/TablesNavPage.js",
+        "docs/pages/FormsNavPage.js",
+        "docs/pages/ModalsNavPage.js",
+        "docs/pages/NavigationNavPage.js"
+      ],
+      "filesToCopy": [
+        "./pages",
+        "./App.js",
+        "./App.test.js",
+        "./logo.svg",
+        "./Routes.js",
+        "./registerServiceWorker.js"
+      ]
+    },
     "react-demo": {
       "url": "https://username:password@git.mdbootstrap.com/mdb/react/react-demo.git",
       "referenceBranch": "master",
