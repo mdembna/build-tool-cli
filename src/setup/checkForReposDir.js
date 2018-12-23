@@ -20,6 +20,9 @@ const checkForReposDir = packagesToCreate => {
 
     if (packagesToCreate.includes(RE_PRO) || packagesToCreate.includes(RE_FREE))
       necessaryRepos.push('react-demo', 're-pro');
+
+    if (packagesToCreate.includes(RE_FREE))
+      necessaryRepos.push('React-Bootstrap-with-Material-Design');
   }
 
   necessaryRepos.map(repoName => {
