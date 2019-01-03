@@ -19,7 +19,7 @@ const reAdmin = async ({ version, lastVersionNumber }) => {
 
 
     copyFiles(targetRepoFilesToUpdate, path.join(baseRepoPath, 'src'), path.join(targetRepoPath, 'mdbreact', 'src'));
-    fs.copySync(path.join(baseRepoPath, 'dist/scss'), path.join(targetRepoPath, 'mdbreact/dist/scs') );
+    fs.copySync(path.join(baseRepoPath, 'dist', 'scss'), path.join(targetRepoPath, 'mdbreact', 'dist', 'scss') );
 
     replaceStringInFile(
         targetRepoFilesToBumpVersion,

@@ -10,6 +10,7 @@ const replaceStringInFile = require('../helpers/replaceStringInFile');
 
 
 const checkoutToBranch = require('../setup/checkoutToBranch');
+const commitChanges = require('../setup/commitChanges');
 const copyEverythingFromDir = require('../helpers/copyEverythingFromDir');
 const readAndDeleteFromFile = require('../helpers/readAndDeleteFromFile');
 const copyFiles = require('../helpers/copyFiles');
@@ -29,7 +30,7 @@ const reFree = async ({ version, lastVersionNumber }) => {
     const filesToEdit = repositories[targetRepoName].filesToEdit;
     const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
 
-
+    commitChanges(`Generate version v.${version}`, baseRepoName);
     checkoutToBranch(baseRepoName, workingBranch, "dev");
     copyEverythingFromDir(baseRepoPath, targetRepoPath);
     deleteFiles(dirToDelete, targetRepoPath);
@@ -37,6 +38,7 @@ const reFree = async ({ version, lastVersionNumber }) => {
 
     build(targetRepoPath, true);
 
+    commitChanges(`Generate version v.${version}`, packageRepoName);
     checkoutToBranch(packageRepoName, workingBranch, "auto-version-update");
     const lastTgzPackage = searchFileByExtension(packageRepoPath, '.tgz');
     lastTgzPackage && deleteFiles(lastTgzPackage, packageRepoPath);

@@ -8,7 +8,7 @@ const copyEverythingFromDir = (baseDirName, targetDirName) => {
         fs.readdirSync(baseDirName).forEach(file => {
             const fileBasePath = path.join(baseDirName, file);
             const fileTargetPath = path.join(targetDirName, file);
-
+            if (file === '.git') return;
             fs.copySync(fileBasePath, fileTargetPath);
             log(`${file} copied`, SUCCESS);
         });
