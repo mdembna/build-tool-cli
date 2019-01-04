@@ -31,7 +31,7 @@ const reFree = async ({ version, lastVersionNumber }) => {
     const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
 
     commitChanges(`Generate version v.${version}`, baseRepoName);
-    checkoutToBranch(baseRepoName, workingBranch, "dev");
+    checkoutToBranch(baseRepoName, workingBranch, "auto-build-test");
     copyEverythingFromDir(baseRepoPath, targetRepoPath);
     deleteFiles(dirToDelete, targetRepoPath);
     await readAndDeleteFromFile(filesToEdit, targetRepoPath, baseRepoPath);
