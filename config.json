@@ -29,7 +29,8 @@
         "docs/pages/TablesNavPage.js",
         "docs/pages/FormsNavPage.js",
         "docs/pages/ModalsNavPage.js",
-        "docs/pages/NavigationNavPage.js"
+        "docs/pages/NavigationNavPage.js",
+        "docs/pages/HomePage.js"
       ],
       "filesToCopy": [
         "./pages",
