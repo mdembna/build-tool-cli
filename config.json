@@ -30,7 +30,10 @@
         "docs/pages/FormsNavPage.js",
         "docs/pages/ModalsNavPage.js",
         "docs/pages/NavigationNavPage.js",
-        "docs/pages/HomePage.js"
+        "docs/pages/HomePage.js",
+        "docs/pages/ModalExamplesPage.js",
+        "docs/pages/ValidationPage.js",
+        "docs/pages/TableStylesPage.js"
       ],
       "filesToCopy": [
         "./pages",

@@ -43,7 +43,6 @@ const reFree = async ({ version, lastVersionNumber, commitMessage }) => {
     const lastTgzPackage = searchFileByExtension(packageRepoPath, '.tgz');
     lastTgzPackage && deleteFiles(lastTgzPackage, packageRepoPath);
 
-
     replaceStringInFile(
         ["package.json"],
         packageRepoPath,
