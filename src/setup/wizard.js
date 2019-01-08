@@ -74,6 +74,24 @@ const inquiryAboutSettings = () => {
         const valid = !!value;
         return valid || "Don't lie to me, enter your valid gitlab password";
       }
+    },
+    {
+      type: 'confirm',
+      name: 'enterCommitMessage',
+      message: 'Do you want to enter your custom commit message? ✏️ ',
+      default: false
+    },
+    {
+      type: 'text',
+      message: 'Enter a commit message: ',
+      name: 'commitMessage',
+      validate: value => {
+        const valid = !!value;
+        return valid || 'You have to enter a commit message';
+      },
+      when: answers => {
+        return answers.enterCommitMessage === true;
+      }
     }
   ];
 

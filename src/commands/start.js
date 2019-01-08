@@ -15,7 +15,7 @@ const {
 } = require('../constans/packages-types');
 
 const setup = async () => {
-  const { version, packagesToCreate, password, login } = await wizard();
+  const { version, packagesToCreate, password, login, commitMessage } = await wizard();
 
   update({ login, password, packagesToCreate });
 
@@ -24,7 +24,7 @@ const setup = async () => {
   packagesToCreate.includes(RE_PRO) && await rePro({ version, lastVersionNumber });
   packagesToCreate.includes(RE_ADMIN) && await reAdmin({ version, lastVersionNumber });
   packagesToCreate.includes(RE_BOUNDLE) && await reBoundle();
-  packagesToCreate.includes(RE_FREE) && await reFree({ version, lastVersionNumber });
+  packagesToCreate.includes(RE_FREE) && await reFree({ version, lastVersionNumber, commitMessage });
 };
 
 module.exports = setup;

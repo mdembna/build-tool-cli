@@ -16,7 +16,7 @@ const readAndDeleteFromFile = require('../helpers/readAndDeleteFromFile');
 const copyFiles = require('../helpers/copyFiles');
 
 
-const reFree = async ({ version, lastVersionNumber }) => {
+const reFree = async ({ version, lastVersionNumber, commitMessage }) => {
     const baseRepoName = 're-pro';
     const packageRepoName = 'react-demo';
     const workingBranch = 'free-auto';
@@ -30,7 +30,7 @@ const reFree = async ({ version, lastVersionNumber }) => {
     const filesToEdit = repositories[targetRepoName].filesToEdit;
     const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
 
-    commitChanges(`Generate version v.${version}`, baseRepoName);
+    commitChanges(commitMessage ? commitMessage : `Generate version v.${version}`, baseRepoName);
     checkoutToBranch(baseRepoName, workingBranch, "auto-build-test");
     copyEverythingFromDir(baseRepoPath, targetRepoPath);
     deleteFiles(dirToDelete, targetRepoPath);
@@ -38,7 +38,7 @@ const reFree = async ({ version, lastVersionNumber }) => {
 
     build(targetRepoPath, true);
 
-    commitChanges(`Generate version v.${version}`, packageRepoName);
+    commitChanges(commitMessage ? commitMessage : `Generate version v.${version}`, packageRepoName);
     checkoutToBranch(packageRepoName, workingBranch, "auto-version-update");
     const lastTgzPackage = searchFileByExtension(packageRepoPath, '.tgz');
     lastTgzPackage && deleteFiles(lastTgzPackage, packageRepoPath);
