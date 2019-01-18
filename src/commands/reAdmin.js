@@ -19,6 +19,7 @@ const reAdmin = async ({ version, lastVersionNumber }) => {
 
 
     copyFiles(targetRepoFilesToUpdate, path.join(baseRepoPath, 'src'), path.join(targetRepoPath, 'mdbreact', 'src'));
+    copyFiles(['./package.json'], baseRepoPath, path.join(targetRepoPath, 'mdbreact'));
     fs.copySync(path.join(baseRepoPath, 'dist', 'scss'), path.join(targetRepoPath, 'mdbreact', 'dist', 'scss') );
 
     replaceStringInFile(

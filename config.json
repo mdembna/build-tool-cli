@@ -39,7 +39,8 @@
         "./pages",
         "./App.js",
         "./App.test.js",
-        "./logo.svg",
+        "./components",
+        "./assets",
         "./Routes.js",
         "./registerServiceWorker.js"
       ]
@@ -56,20 +57,20 @@
         "./pages",
         "./App.js",
         "./App.test.js",
-        "./logo.svg",
+        "./components",
+        "./assets",
         "./Routes.js",
         "./registerServiceWorker.js"
       ]
     },
     "mdb-react-admin-pro": {
       "url": "https://username:password@git.mdbootstrap.com/mdb/react/mdb-react-admin-pro.git",
-      "referenceBranch": "master",
+      "referenceBranch": "dev",
       "workingBranch": "auto-version-update",
       "bumpVersion": [
         "package.json",
         "mdbreact/README.md",
-        "mdbreact/README.txt",
-        "mdbreact/package.json"
+        "mdbreact/README.txt"
       ],
       "filesToUpdate": [
         "./components/Badge.js",
@@ -122,7 +123,6 @@
         "./components/TableBody.js",
         "./components/TableHead.js",
         "./components/TableFoot.js",
-        "./components/TextField.js",
         "./components/Tooltip.js",
         "./components/View.js",
         "./components/pro/Autocomplete.js",
