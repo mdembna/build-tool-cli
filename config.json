@@ -8,6 +8,12 @@
         "README.txt",
         "README.md",
         "package.json"
+      ],
+      "filesToUpdate": [
+        "src/components/DataTable.js",
+        "src/components/DropdownMenu.js",
+        "src/components/DataTableComponents/DataTableEntries.js",
+        "src/components/DataTableComponents/DataTableSearch.js"
       ]
     },
     "React-Bootstrap-with-Material-Design": {
@@ -33,7 +39,11 @@
         "docs/pages/HomePage.js",
         "docs/pages/ModalExamplesPage.js",
         "docs/pages/ValidationPage.js",
-        "docs/pages/TableStylesPage.js"
+        "docs/pages/TableStylesPage.js",
+        "src/components/DataTable.js",
+        "src/components/DropdownMenu.js",
+        "src/components/DataTableComponents/DataTableEntries.js",
+        "src/components/DataTableComponents/DataTableSearch.js"
       ],
       "filesToCopy": [
         "./pages",
