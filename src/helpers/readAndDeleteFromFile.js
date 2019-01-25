@@ -3,7 +3,7 @@ const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
 
-const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath, ver) => {
+const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath) => {
 
     return Promise.all(filesToEdit.map( file => {
 
@@ -17,10 +17,10 @@ const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath, 
                 terminal: false
             });
 
-            const startMarkerInJSX = `{/* ${ver}-START */}`;
-            const startMarkerInJS = `// ${ver}-START`;
-            const endMarkerInJSX = `{/* ${ver}-END */}`;
-            const endMarkerInJS = `// ${ver}-END`;
+            const startMarkerInJSX = '{/* PRO-START */}';
+            const startMarkerInJS = '// PRO-START';
+            const endMarkerInJSX = '{/* PRO-END */}';
+            const endMarkerInJS = '// PRO-END';
             let deleteEnabled = false;
 
 
