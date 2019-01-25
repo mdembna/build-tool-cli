@@ -8,7 +8,7 @@ const copyFiles = require('../helpers/copyFiles');
 const deleteFiles = require('../helpers/deleteFiles');
 const path = require('path');
 const { RE_PRO } = require('../constans/packages-types');
-const readAndDeleteFromFilePro = require('../helpers/readAndDeleteFromFile');
+const readAndDeleteFromFilePro = require('../helpers/readAndDeleteFromFilePro');
 
 const rePro = async ({ version, lastVersionNumber }) => {
   const baseRepoName = 're-pro';
