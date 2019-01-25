@@ -9,6 +9,7 @@ const copyEverythingFromDir = (baseDirName, targetDirName) => {
             const fileBasePath = path.join(baseDirName, file);
             const fileTargetPath = path.join(targetDirName, file);
             if (file === '.git') return;
+            if (file === 'node_modules') return;
             fs.copySync(fileBasePath, fileTargetPath);
             log(`${file} copied`, SUCCESS);
         });
