@@ -1,15 +1,22 @@
 
 const readline = require('readline');
 const fs = require('fs');
+const fse = require('fs-extra');
 const path = require('path');
 
-const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath, ver) => {
+const readAndDeleteFromFilePro = async (filesToEdit, targetRepoPath, baseRepoPath, ver) => {
 
-    return Promise.all(filesToEdit.map( file => {
+    return Promise.all(filesToEdit.map(file => {
 
         return new Promise((resolve, reject) => {
-            const readStream = fs.createReadStream(path.join(baseRepoPath, file));
-            const writeStream = fs.createWriteStream(path.join(targetRepoPath, file));
+            const readPath = path.join(baseRepoPath, file);
+            const splitFile = file.split('.');
+            const writePath = path.join(targetRepoPath, `${splitFile[0]}_edit.${splitFile[1]}`);
+
+            fse.copySync(readPath, writePath);
+
+            const readStream = fs.createReadStream(writePath);
+            const writeStream = fs.createWriteStream(readPath);
 
             const rl = readline.createInterface({
                 input: readStream,
@@ -37,15 +44,17 @@ const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath, 
                 }
             }).on('close', () => {
                 writeStream.close()
+                fse.remove(writePath, (err) => {
+                    if (err) throw err;
+                })
                 resolve()
             })
-
-            })
-
         })
+
+    })
 
     )
 
 }
 
-module.exports = readAndDeleteFromFile;
+module.exports = readAndDeleteFromFilePro;

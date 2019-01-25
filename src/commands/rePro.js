@@ -8,6 +8,7 @@ const copyFiles = require('../helpers/copyFiles');
 const deleteFiles = require('../helpers/deleteFiles');
 const path = require('path');
 const { RE_PRO } = require('../constans/packages-types');
+const readAndDeleteFromFilePro = require('../helpers/readAndDeleteFromFilePro');
 
 const rePro = async ({ version, lastVersionNumber }) => {
   const baseRepoName = 're-pro';
@@ -22,6 +23,8 @@ const rePro = async ({ version, lastVersionNumber }) => {
   const baseRepoFilesToEdit = repositories[baseRepoName].filesToEdit;
   const targetRepoFilesToEdit = repositories[targetRepoName].filesToEdit;
   const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
+
+  await readAndDeleteFromFilePro(repositories[baseRepoName].filesToUpdate, baseRepoPath, baseRepoPath, "FREE");
 
   replaceStringInFile(
     baseRepoFilesToEdit,
