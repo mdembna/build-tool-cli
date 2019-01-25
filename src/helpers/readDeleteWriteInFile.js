@@ -1,15 +1,23 @@
 
 const readline = require('readline');
+const fse = require('fs-extra');
 const fs = require('fs');
 const path = require('path');
 
-const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath, ver) => {
+const readAndDeleteFromFile = async (filesToEdit, repoPath, ver) => {
 
-    return Promise.all(filesToEdit.map( file => {
+    return Promise.all(filesToEdit.map(file => {
+        const readPath = path.join(repoPath, file);
+        const splitFile = file.split('.');
+        const writePath = path.join(repoPath, `${splitFile[0]}_edit.${splitFile[1]}`);
 
-        return new Promise((resolve, reject) => {
-            const readStream = fs.createReadStream(path.join(baseRepoPath, file));
-            const writeStream = fs.createWriteStream(path.join(targetRepoPath, file));
+        const writeToEdit = new Promise((resolve, reject) => {
+            fse.copy(readPath, writePath, (err) => {
+                if (err) throw err;
+            })
+
+            const readStream = fs.createReadStream(readPath);
+            const writeStream = fs.createWriteStream(writePath);
 
             const rl = readline.createInterface({
                 input: readStream,
@@ -21,8 +29,8 @@ const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath, 
             const startMarkerInJS = `// ${ver}-START`;
             const endMarkerInJSX = `{/* ${ver}-END */}`;
             const endMarkerInJS = `// ${ver}-END`;
-            let deleteEnabled = false;
 
+            let deleteEnabled = false;
 
             rl.on('line', function (line) {
                 if (!deleteEnabled && line.includes(startMarkerInJSX) || line.includes(startMarkerInJS)) {
@@ -40,11 +48,17 @@ const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath, 
                 resolve()
             })
 
-            })
-
         })
 
-    )
+        writeToEdit.then(() => {
+            fse.copy(writePath, readPath, (err) => {
+                if (err) throw err;
+            })
+            fse.remove(writePath, (err) => {
+                if (err) throw err;
+            })
+        })
+    }))
 
 }
 

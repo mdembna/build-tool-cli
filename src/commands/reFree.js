@@ -34,7 +34,7 @@ const reFree = async ({ version, lastVersionNumber, commitMessage }) => {
     checkoutToBranch(baseRepoName, workingBranch, "auto-build-test");
     copyEverythingFromDir(baseRepoPath, targetRepoPath);
     deleteFiles(dirToDelete, targetRepoPath);
-    await readAndDeleteFromFile(filesToEdit, targetRepoPath, baseRepoPath);
+    await readAndDeleteFromFile(filesToEdit, targetRepoPath, baseRepoPath, "PRO");
 
     build(targetRepoPath, true);
 
