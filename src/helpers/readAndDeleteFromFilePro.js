@@ -1,23 +1,22 @@
 
 const readline = require('readline');
-const fse = require('fs-extra');
 const fs = require('fs');
+const fse = require('fs-extra');
 const path = require('path');
 
-const readAndDeleteFromFile = async (filesToEdit, repoPath, ver) => {
+const readAndDeleteFromFilePro = async (filesToEdit, targetRepoPath, baseRepoPath, ver) => {
 
     return Promise.all(filesToEdit.map(file => {
-        const readPath = path.join(repoPath, file);
-        const splitFile = file.split('.');
-        const writePath = path.join(repoPath, `${splitFile[0]}_edit.${splitFile[1]}`);
 
-        const writeToEdit = new Promise((resolve, reject) => {
-            fse.copy(readPath, writePath, (err) => {
-                if (err) throw err;
-            })
+        return new Promise((resolve, reject) => {
+            const readPath = path.join(baseRepoPath, file);
+            const splitFile = file.split('.');
+            const writePath = path.join(targetRepoPath, `${splitFile[0]}_edit.${splitFile[1]}`);
 
-            const readStream = fs.createReadStream(readPath);
-            const writeStream = fs.createWriteStream(writePath);
+            fse.copySync(readPath, writePath);
+
+            const readStream = fs.createReadStream(writePath);
+            const writeStream = fs.createWriteStream(readPath);
 
             const rl = readline.createInterface({
                 input: readStream,
@@ -29,8 +28,8 @@ const readAndDeleteFromFile = async (filesToEdit, repoPath, ver) => {
             const startMarkerInJS = `// ${ver}-START`;
             const endMarkerInJSX = `{/* ${ver}-END */}`;
             const endMarkerInJS = `// ${ver}-END`;
-
             let deleteEnabled = false;
+
 
             rl.on('line', function (line) {
                 if (!deleteEnabled && line.includes(startMarkerInJSX) || line.includes(startMarkerInJS)) {
@@ -45,21 +44,17 @@ const readAndDeleteFromFile = async (filesToEdit, repoPath, ver) => {
                 }
             }).on('close', () => {
                 writeStream.close()
+                fse.remove(writePath, (err) => {
+                    if (err) throw err;
+                })
                 resolve()
             })
-
         })
 
-        writeToEdit.then(() => {
-            fse.copy(writePath, readPath, (err) => {
-                if (err) throw err;
-            })
-            fse.remove(writePath, (err) => {
-                if (err) throw err;
-            })
-        })
-    }))
+    })
+
+    )
 
 }
 
-module.exports = readAndDeleteFromFile;
+module.exports = readAndDeleteFromFilePro;

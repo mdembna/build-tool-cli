@@ -7,7 +7,9 @@
       "filesToEdit": [
         "README.txt",
         "README.md",
-        "package.json",
+        "package.json"
+      ],
+      "filesToUpdate": [
         "src/components/DataTable.js",
         "src/components/DropdownMenu.js",
         "src/components/DataTableComponents/DataTableEntries.js",
