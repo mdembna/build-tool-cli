@@ -2,7 +2,7 @@
   "repositories": {
     "re-pro": {
       "url": "https://username:password@git.mdbootstrap.com/mdb/react/re-pro.git",
-      "referenceBranch": "rollup-exchange",
+      "referenceBranch": "dev",
       "workingBranch": "auto-build-test",
       "filesToEdit": [
         "README.txt",
