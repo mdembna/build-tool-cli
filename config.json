@@ -138,6 +138,7 @@
         "./components/pro/InputRange.js",
         "./components/pro/InputSwitch.js",
         "./components/pro/SideNav.js",
+        "./components/pro/SideNavContext.js",
         "./components/pro/SideNavCat.js",
         "./components/pro/SideNavItem.js",
         "./components/pro/SideNavLink.js",
