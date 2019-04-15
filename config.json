@@ -133,6 +133,7 @@
         "./components/pro/Avatar.js",
         "./components/pro/CardUp.js",
         "./components/pro/Chip.js",
+        "./components/pro/InputFile.css",
         "./components/pro/InputFile.js",
         "./components/pro/InputRange.js",
         "./components/pro/InputSwitch.js",
