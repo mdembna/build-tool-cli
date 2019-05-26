@@ -4,3 +4,4 @@ repos/*
 test/*
 !test/.test
 *.zip
+plugins/*

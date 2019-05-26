@@ -10,24 +10,23 @@ const readAndDeleteFromFile = async (filesToEdit, targetRepoPath, baseRepoPath) 
         return new Promise((resolve, reject) => {
             const readStream = fs.createReadStream(path.join(baseRepoPath, file));
             const writeStream = fs.createWriteStream(path.join(targetRepoPath, file));
-
             const rl = readline.createInterface({
                 input: readStream,
                 // output: writeStream,
                 terminal: false
             });
 
-            const startMarkerInJSX = '{/* PRO-START */}';
-            const startMarkerInJS = '// PRO-START';
-            const endMarkerInJSX = '{/* PRO-END */}';
-            const endMarkerInJS = '// PRO-END';
+            const startMarkerInVue = '<!-- removeIf(free) -->';
+            const startMarkerInJS = '// removeIf(free)';
+            const endMarkerInVue = '<!-- endRemoveIf(free) -->';
+            const endMarkerInJS = '// endRemoveIf(free)';
             let deleteEnabled = false;
 
 
             rl.on('line', function (line) {
-                if (!deleteEnabled && line.includes(startMarkerInJSX) || line.includes(startMarkerInJS)) {
+                if (!deleteEnabled && line.includes(startMarkerInVue) || line.includes(startMarkerInJS)) {
                     deleteEnabled = true;
-                } else if (deleteEnabled && line.includes(endMarkerInJSX) || line.includes(endMarkerInJS)) {
+                } else if (deleteEnabled && line.includes(endMarkerInVue) || line.includes(endMarkerInJS)) {
                     deleteEnabled = false;
                     return;
                 }

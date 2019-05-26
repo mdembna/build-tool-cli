@@ -1,15 +1,15 @@
 #!/usr/bin/env node
-
+//poczytac o komanderze start dziala
 const wielkaMaszynoPakujaca = require('commander');
 const { version } = require('../package.json');
 
 const start = require('./commands/start');
 const update = require('./commands/update');
 const pack = require('./commands/pack');
-const rePro = require('./commands/rePro');
-const reFree = require('./commands/reFree');
-const reAdmin = require('./commands/reAdmin');
-const reBoundle = require('./commands/reBoundle');
+const vuPro = require('./commands/vuPro');
+const vuFree = require('./commands/vuFree');
+const vuAdmin = require('./commands/vuAdmin');
+const vuBundle = require('./commands/vuBundle');
 
 wielkaMaszynoPakujaca.version(version);
 
@@ -29,24 +29,24 @@ wielkaMaszynoPakujaca
   .action(pack);
 
 wielkaMaszynoPakujaca
-  .command('rePro')
-  .description('creates MDB-React-Pro-npm package')
-  .action(rePro);
+  .command('vuPro')
+  .description('creates MDB-Vue-Pro-npm package')
+  .action(vuPro);
 
 wielkaMaszynoPakujaca
-  .command('reFree')
-  .description('creates MDB-React-Free-npm package')
-  .action(reFree);
+  .command('vuFree')
+  .description('creates MDB-Vue-Free-npm package')
+  .action(vuFree);
 
 wielkaMaszynoPakujaca
-  .command('reAdmin')
-  .description('creates MDB-React-Admin-Pro package')
-  .action(reAdmin);
+  .command('vuAdmin')
+  .description('creates MDB-Vue-Admin-Pro package')
+  .action(vuAdmin);
 
 wielkaMaszynoPakujaca
-  .command('reBoundle')
-  .description('creates MDB-React-Small-Bundle package')
-  .action(reBoundle);
+  .command('vuBundle')
+  .description('creates MDB-Vue-Small-Bundle package')
+  .action(vuBundle);
 
 wielkaMaszynoPakujaca.command('*').action(() => wielkaMaszynoPakujaca.help());
 

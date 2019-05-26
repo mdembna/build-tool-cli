@@ -7,21 +7,25 @@ const searchFileByExtension = require('../helpers/searchFileByExtension');
 const copyFiles = require('../helpers/copyFiles');
 const deleteFiles = require('../helpers/deleteFiles');
 const path = require('path');
-const { RE_PRO } = require('../constans/packages-types');
+const { VU_PRO } = require('../constans/packages-types');
 
-const rePro = async ({ version, lastVersionNumber }) => {
-  const baseRepoName = 're-pro';
-  const targetRepoName = 'react-demo';
-
+const vuPro = async ({ version, lastVersionNumber }) => {
+  //M
+  const baseRepoName = 'vu-pro';
+  const targetRepoName = 'vue-demo';
+  //--
   const baseRepoPath = getPathToRepo(baseRepoName);
-  const baseRepoDocsPath = path.join(baseRepoPath, 'docs');
+  // const baseRepoDocsPath = path.join(baseRepoPath, 'docs');
+  const baseRepoSrcPath = path.join(baseRepoPath, 'src');
 
   const targetRepoPath = getPathToRepo(targetRepoName);
-  const targetRepoSrcPath = path.join(targetRepoPath, 'src');
+  const targetRepoSrcPath = path.join(targetRepoPath, 'demo');
 
   const baseRepoFilesToEdit = repositories[baseRepoName].filesToEdit;
   const targetRepoFilesToEdit = repositories[targetRepoName].filesToEdit;
-  const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
+  // const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
+
+  const zipName = `${VU_PRO}-${version}`;
 
   replaceStringInFile(
     baseRepoFilesToEdit,
@@ -38,17 +42,21 @@ const rePro = async ({ version, lastVersionNumber }) => {
   let newTgzPackage = searchFileByExtension(baseRepoPath, '.tgz');
   copyFiles(newTgzPackage, baseRepoPath, targetRepoPath);
   deleteFiles(newTgzPackage, baseRepoPath);
-
+  
   replaceStringInFile(
     targetRepoFilesToEdit,
     targetRepoPath,
     lastVersionNumber,
     version
   );
+  
+  deleteFiles(['App.vue', 'docs', 'main.js', 'router'], targetRepoSrcPath);
+  copyFiles(['App.vue', 'docs', 'main.js', 'router'], baseRepoSrcPath, targetRepoSrcPath);
 
-  copyFiles(targetRepoFilesToCopy, baseRepoDocsPath, targetRepoSrcPath);
+  replaceStringInFile(['main.js'], targetRepoSrcPath, "import Notify from './components/pro/Advanced/Notify.js';", "import { Notify } from 'mdbvue';");
+  replaceStringInFile(['main.js'], targetRepoSrcPath, "import '../build/css/mdb.css';", "import 'mdbvue/build/css/mdb.css';");
 
-  await createZip(targetRepoName, RE_PRO);
+  await createZip(targetRepoName, zipName);
 };
 
-module.exports = rePro;
+module.exports = vuPro;

@@ -1,30 +1,36 @@
 const wizard = require('../setup/wizard');
 const getLastVersionNumber = require('../helpers/getLastVersionNumber');
 const update = require('./update');
-const rePro = require('./rePro');
-const reFree = require('./reFree');
-const reAdmin = require('./reAdmin');
-const reBoundle = require('./reBoundle');
+const vuPro = require('./vuPro');
+const vuFree = require('./vuFree');
+const vuAdmin = require('./vuAdmin');
+const vuBundle = require('./vuBundle');
+const vuPlugins = require('./vuPlugins');
+const vuExtended = require('./vuExtended')
 const log = require('../helpers/log');
 const { INFO } = require('../constans/log-types');
 const {
-  RE_PRO,
-  RE_FREE,
-  RE_BOUNDLE,
-  RE_ADMIN
+  VU_PRO,
+  VU_FREE,
+  VU_BUNDLE,
+  VU_ADMIN,
+  VU_PLUGINS,
+  VU_EXTENDED
 } = require('../constans/packages-types');
 
 const setup = async () => {
-  const { version, packagesToCreate, password, login, commitMessage } = await wizard();
+  const { version, packagesToCreate, password, login, commitMessage, pluginsPackVersion } = await wizard();
 
   update({ login, password, packagesToCreate });
 
-  const lastVersionNumber = getLastVersionNumber('re-pro');
-
-  packagesToCreate.includes(RE_PRO) && await rePro({ version, lastVersionNumber });
-  packagesToCreate.includes(RE_ADMIN) && await reAdmin({ version, lastVersionNumber });
-  packagesToCreate.includes(RE_BOUNDLE) && await reBoundle();
-  packagesToCreate.includes(RE_FREE) && await reFree({ version, lastVersionNumber, commitMessage });
+  const lastVersionNumber = getLastVersionNumber('vu-pro');
+  
+  packagesToCreate.includes(VU_PRO) && await vuPro({ version, lastVersionNumber });
+  packagesToCreate.includes(VU_ADMIN) && await vuAdmin({ version, lastVersionNumber });
+  packagesToCreate.includes(VU_BUNDLE) && await vuBundle(version);
+  packagesToCreate.includes(VU_FREE) && await vuFree({ version, lastVersionNumber, commitMessage });
+  packagesToCreate.includes(VU_PLUGINS) && await vuPlugins(pluginsPackVersion);
+  packagesToCreate.includes(VU_EXTENDED) && await vuExtended(version, pluginsPackVersion);
 };
 
 module.exports = setup;

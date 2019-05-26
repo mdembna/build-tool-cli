@@ -1,28 +1,28 @@
 const { repositories } = require('../../config.json');
 const {
-  RE_ADMIN,
-  RE_BOUNDLE,
-  RE_PRO,
-  RE_FREE
+  VU_ADMIN,
+  VU_BUNDLE,
+  VU_PRO,
+  VU_FREE
 } = require('../constans/packages-types');
 const checkIfDirExist = require('../helpers/checkIfDirExist');
 
 const checkForReposDir = packagesToCreate => {
   let reposToClone = [];
   let allRepoNames = Object.keys(repositories);
-  let necessaryRepos = [];
+  let necessaryRepos = ['vu-pro'];
 
-  if (packagesToCreate.includes(RE_BOUNDLE)) {
-    necessaryRepos = [...allRepoNames];
+  if (packagesToCreate.includes(VU_BUNDLE)) {
+    necessaryRepos.push('mdbvue-admin-pro', 'vue-demo');
   } else {
-    if (packagesToCreate.includes(RE_ADMIN))
-      necessaryRepos.push('mdb-react-admin-pro', 're-pro');
+    if (packagesToCreate.includes(VU_ADMIN))
+      necessaryRepos.push('mdbvue-admin-pro');
 
-    if (packagesToCreate.includes(RE_PRO) || packagesToCreate.includes(RE_FREE))
-      necessaryRepos.push('react-demo', 're-pro');
+    if (packagesToCreate.includes(VU_PRO) || packagesToCreate.includes(VU_FREE))
+      necessaryRepos.push('vue-demo');
 
-    if (packagesToCreate.includes(RE_FREE))
-      necessaryRepos.push('React-Bootstrap-with-Material-Design');
+    if (packagesToCreate.includes(VU_FREE))
+      necessaryRepos.push('Vue-Bootstrap-with-Material-Design', 'bootstrap-material-design');
   }
 
   necessaryRepos.map(repoName => {

@@ -17,7 +17,8 @@ const zipDirectory = (repoName, zipName) => {
       '**/*',
       {
         cwd: path.join(rootDir, `repos/${repoName}`),
-        ignore: ['.git', '.gitignore', '**/node_modules/**']
+        ignore: ['**/.git/**', '.gitignore', '**/node_modules/**'],
+        dot: true
       },
       {}
     );

@@ -3,10 +3,12 @@ const prompt = inquirer.createPromptModule();
 const log = require('../helpers/log');
 const { INFO } = require('../constans/log-types');
 const {
-  RE_PRO,
-  RE_FREE,
-  RE_ADMIN,
-  RE_BOUNDLE
+  VU_PRO,
+  VU_FREE,
+  VU_ADMIN,
+  VU_BUNDLE,
+  VU_PLUGINS,
+  VU_EXTENDED
 } = require('../constans/packages-types');
 
 const inquiryAboutSettings = () => {
@@ -25,16 +27,22 @@ const inquiryAboutSettings = () => {
       name: 'packagesToCreate',
       choices: [
         {
-          name: RE_PRO
+          name: VU_PRO
         },
         {
-          name: RE_FREE
+          name: VU_FREE
         },
         {
-          name: RE_ADMIN
+          name: VU_ADMIN
         },
         {
-          name: RE_BOUNDLE
+          name: VU_BUNDLE
+        },
+        {
+          name: VU_PLUGINS
+        },
+        {
+          name: VU_EXTENDED
         }
       ],
       validate: answers => {
@@ -54,6 +62,18 @@ const inquiryAboutSettings = () => {
       validate: value => {
         const valid = !!value;
         return valid || 'You have to enter the version number';
+      }
+    },
+    {
+      type: 'text',
+      message: 'Which plugin pack version do you want to generate?',
+      name: 'pluginsPackVersion',
+      validate: value => {
+        const valid = !!value;
+        return valid || 'You have to enter the version number';
+      },
+      when: answers => {
+        return answers.createAllPackages || answers.packagesToCreate.indexOf(VU_PLUGINS) !== -1 || answers.packagesToCreate.indexOf(VU_EXTENDED) !== -1;
       }
     },
     {
@@ -97,7 +117,7 @@ const inquiryAboutSettings = () => {
 
   return prompt(questions).then(answers => {
     if (answers.createAllPackages) {
-      answers.packagesToCreate = [RE_PRO, RE_ADMIN, RE_BOUNDLE, RE_FREE];
+      answers.packagesToCreate = [VU_PRO, VU_ADMIN, VU_BUNDLE, VU_FREE, VU_PLUGINS, VU_EXTENDED];
     }
     return answers;
   });
