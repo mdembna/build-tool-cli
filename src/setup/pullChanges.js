@@ -6,16 +6,14 @@ const { SUCCESS } = require('../constans/log-types');
 const deleteFiles = require('../helpers/deleteFiles');
 
 
-const checkoutToBranch = (repoName) => {
+const pullChanges = (repoName, referenceBranch, workingBranch) => {
     const repoPath = getPathToRepo(repoName);
     try {
         cd(repoPath);
-        exec(`git checkout free} || git checkout -b free`);
-        deleteFiles(['src/components', 'index.js', 'docs', 'router/index.js'], repoPath);
-        exec(`git add .`);
-        exec(`git commit -m "Remove all docs&components"`);
-        exec(`git pull origin dev`);
-        log(`Repo ${repoName} up to date, on branch free`, SUCCESS)
+        exec(`git checkout ${workingBranch} || git checkout -b ${workingBranch}`);
+        exec(`git pull`);
+        exec(`git pull origin ${referenceBranch}`);
+        log(`Repo ${repoName} up to date, on branch ${workingBranch}`, SUCCESS)
     } catch (err) {
         log(`An error occurred while updating repos ⚠️`, ERROR);
         log(stderr, ERROR);
@@ -23,4 +21,4 @@ const checkoutToBranch = (repoName) => {
 
 };
 
-module.exports = checkoutToBranch;
+module.exports = pullChanges;

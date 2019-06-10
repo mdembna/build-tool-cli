@@ -12,8 +12,8 @@ const checkForReposDir = packagesToCreate => {
   let allRepoNames = Object.keys(repositories);
   let necessaryRepos = ['vu-pro'];
 
-  if (packagesToCreate.includes(VU_BUNDLE)) {
-    necessaryRepos.push('mdbvue-admin-pro', 'vue-demo');
+  if (packagesToCreate.length === 6) {
+    necessaryRepos = allRepoNames;
   } else {
     if (packagesToCreate.includes(VU_ADMIN))
       necessaryRepos.push('mdbvue-admin-pro');
@@ -23,6 +23,9 @@ const checkForReposDir = packagesToCreate => {
 
     if (packagesToCreate.includes(VU_FREE))
       necessaryRepos.push('Vue-Bootstrap-with-Material-Design', 'bootstrap-material-design');
+    
+    // if (packagesToCreate.includes(VU_BUNDLE) || packagesToCreate.includes(VU_SUPER))
+    //   necessaryRepos.push('mdbvue-admin-pro', 'vue-demo');
   }
 
   necessaryRepos.map(repoName => {

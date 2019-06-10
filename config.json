@@ -30,6 +30,15 @@
       "bumpVersion": [
         "package.json",
         "README.md"
+      ],
+      "filesToCopy": [
+        "package.json",
+        "README.md",
+        "build/css",
+        "build/img",
+        "build/scss",
+        "build/font",
+        "src"
       ]
     },
     "vue-demo": {
@@ -177,10 +186,12 @@
         "directives/AnimateOnScroll.js",
         "directives/Smooth.js",
         "directives/Sticky.js",
-        "mixins/drop.js",
         "mixins/mdbClassMixin.js",
         "mixins/Waves.css",
-        "mixins/waves.js"
+        "mixins/waves.js",
+        "mixins/mdbDropdown.js",
+        "mixins/mdbTooltip.js",
+        "mixins/mdbInput.js"
       ]
     },
     "bootstrap-material-design": {

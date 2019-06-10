@@ -6,11 +6,13 @@ const replaceStringInFile = require('../helpers/replaceStringInFile');
 const searchFileByExtension = require('../helpers/searchFileByExtension');
 const copyFiles = require('../helpers/copyFiles');
 const deleteFiles = require('../helpers/deleteFiles');
+const commitChanges = require('../setup/commitChanges');
 const path = require('path');
 const { VU_PRO } = require('../constans/packages-types');
 
-const vuPro = async ({ version, lastVersionNumber }) => {
+const vuPro = async ({ version, lastVersionNumber, commitMessage }) => {
   //M
+  console.log(commitMessage);
   const baseRepoName = 'vu-pro';
   const targetRepoName = 'vue-demo';
   //--
@@ -42,7 +44,8 @@ const vuPro = async ({ version, lastVersionNumber }) => {
   let newTgzPackage = searchFileByExtension(baseRepoPath, '.tgz');
   copyFiles(newTgzPackage, baseRepoPath, targetRepoPath);
   deleteFiles(newTgzPackage, baseRepoPath);
-  
+  // commitChanges(commitMessage, baseRepoName);
+
   replaceStringInFile(
     targetRepoFilesToEdit,
     targetRepoPath,
@@ -55,6 +58,7 @@ const vuPro = async ({ version, lastVersionNumber }) => {
 
   replaceStringInFile(['main.js'], targetRepoSrcPath, "import Notify from './components/pro/Advanced/Notify.js';", "import { Notify } from 'mdbvue';");
   replaceStringInFile(['main.js'], targetRepoSrcPath, "import '../build/css/mdb.css';", "import 'mdbvue/build/css/mdb.css';");
+  // commitChanges(commitMessage, targetRepoName);
 
   await createZip(targetRepoName, zipName);
 };

@@ -8,7 +8,8 @@ const {
   VU_ADMIN,
   VU_BUNDLE,
   VU_PLUGINS,
-  VU_EXTENDED
+  VU_EXTENDED,
+  VU_SUPER
 } = require('../constans/packages-types');
 
 const inquiryAboutSettings = () => {
@@ -18,7 +19,7 @@ const inquiryAboutSettings = () => {
     {
       type: 'confirm',
       name: 'createAllPackages',
-      message: 'Do you want to create all four packages?',
+      message: 'Do you want to create all six packages?',
       default: true
     },
     {
@@ -43,6 +44,9 @@ const inquiryAboutSettings = () => {
         },
         {
           name: VU_EXTENDED
+        },
+        {
+          name: VU_SUPER
         }
       ],
       validate: answers => {
@@ -73,7 +77,7 @@ const inquiryAboutSettings = () => {
         return valid || 'You have to enter the version number';
       },
       when: answers => {
-        return answers.createAllPackages || answers.packagesToCreate.indexOf(VU_PLUGINS) !== -1 || answers.packagesToCreate.indexOf(VU_EXTENDED) !== -1;
+        return answers.createAllPackages || answers.packagesToCreate.indexOf(VU_PLUGINS) !== -1 || answers.packagesToCreate.indexOf(VU_EXTENDED) !== -1 || answers.packagesToCreate.indexOf(VU_SUPER) !== -1;
       }
     },
     {
@@ -95,29 +99,29 @@ const inquiryAboutSettings = () => {
         return valid || "Don't lie to me, enter your valid gitlab password";
       }
     },
-    {
-      type: 'confirm',
-      name: 'enterCommitMessage',
-      message: 'Do you want to enter your custom commit message? ✏️ ',
-      default: false
-    },
-    {
-      type: 'text',
-      message: 'Enter a commit message: ',
-      name: 'commitMessage',
-      validate: value => {
-        const valid = !!value;
-        return valid || 'You have to enter a commit message';
-      },
-      when: answers => {
-        return answers.enterCommitMessage === true;
-      }
-    }
+    // {
+    //   type: 'confirm',
+    //   name: 'enterCommitMessage',
+    //   message: 'Do you want to enter your custom commit message? ✏️ ',
+    //   default: false
+    // },
+    // {
+    //   type: 'text',
+    //   message: 'Enter a commit message: ',
+    //   name: 'commitMessage',
+    //   validate: value => {
+    //     const valid = !!value;
+    //     return valid || 'You have to enter a commit message';
+    //   },
+    //   when: answers => {
+    //     return answers.enterCommitMessage === true;
+    //   }
+    // }
   ];
 
   return prompt(questions).then(answers => {
     if (answers.createAllPackages) {
-      answers.packagesToCreate = [VU_PRO, VU_ADMIN, VU_BUNDLE, VU_FREE, VU_PLUGINS, VU_EXTENDED];
+      answers.packagesToCreate = [VU_PRO, VU_ADMIN, VU_BUNDLE, VU_FREE, VU_PLUGINS, VU_EXTENDED, VU_SUPER];
     }
     return answers;
   });

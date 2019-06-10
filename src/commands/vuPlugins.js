@@ -18,7 +18,6 @@ const vuPlugins = async (version) => {
       files.forEach(file => {
         filesToCopy.push(file)
       });
-      console.log(filesToCopy);
       fs.ensureDirSync(pathToTargetDir);
       copyFiles(filesToCopy, pluginsPath, pathToTargetDir);
       createZip(VU_PLUGINS, zipName);
