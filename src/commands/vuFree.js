@@ -1,27 +1,22 @@
-const build = require('../helpers/build');
 const { repositories } = require('../../config.json');
 const getPathToRepo = require('../helpers/getPathToRepo');
 const createZip = require('../setup/createZip');
-const searchFileByExtension = require('../helpers/searchFileByExtension');
 const deleteFiles = require('../helpers/deleteFiles');
 const path = require('path');
 const { VU_FREE } = require('../constans/packages-types');
 const replaceStringInFile = require('../helpers/replaceStringInFile');
 
 const pullChanges = require('../setup/pullChanges');
-const checkoutToBranch = require('../setup/checkoutToBranch');
 const switchBranch = require('../setup/switchBranch');
 const commitChanges = require('../setup/commitChanges');
-const copyEverythingFromDir = require('../helpers/copyEverythingFromDir');
-const readAndDeleteFromFile = require('../helpers/readAndDeleteFromFile');
 const copyFiles = require('../helpers/copyFiles');
 const compileScss = require('../helpers/compileScss');
+const buildLib = require('../helpers/buildLib');
 
 
 const vuFree = async ({ version, lastVersionNumber, commitMessage }) => {
     const baseRepoName = 'vu-pro';
     const packageRepoName = 'vue-demo';
-    const workingBranch = 'dev';
     const targetRepoName = 'Vue-Bootstrap-with-Material-Design';
     const jQueryRepoName = 'bootstrap-material-design';
 
@@ -33,7 +28,6 @@ const vuFree = async ({ version, lastVersionNumber, commitMessage }) => {
     const dirToDelete = repositories[targetRepoName].dirToDelete;
     const filesToEdit = repositories[targetRepoName].filesToEdit;
     const filesToBumpVersion = repositories[targetRepoName].bumpVersion;
-    const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
     const zipName = `${VU_FREE}-${version}`;
     const filesToCopy = repositories[targetRepoName].filesToCopy;
 
@@ -71,11 +65,14 @@ const vuFree = async ({ version, lastVersionNumber, commitMessage }) => {
         version
     );
     replaceStringInFile(['main.js'], path.join(packageRepoPath, 'demo'), 'import ../build/css/mdb.css',  'mdbvue/build/css/mdb.css');
+    replaceStringInFile(['HomePage.vue'], path.join(packageRepoPath, 'demo', 'docs'), "../assets/logo-mdb-vue-small.png", "../../src/assets/logo-mdb-vue-small.png");
     commitChanges(commitMessage, packageRepoName);
     //github
     switchBranch(targetRepoName, 'master');
     deleteFiles(['src'], targetRepoPath);
     copyFiles(filesToCopy, baseRepoPath, targetRepoPath);
+    buildLib(targetRepoName);
+    commitChanges(commitMessage, targetRepoName);
     
     await createZip(packageRepoName, zipName);
 };

@@ -11,21 +11,17 @@ const path = require('path');
 const { VU_PRO } = require('../constans/packages-types');
 
 const vuPro = async ({ version, lastVersionNumber, commitMessage }) => {
-  //M
-  console.log(commitMessage);
+
   const baseRepoName = 'vu-pro';
-  const targetRepoName = 'vue-demo';
-  //--
   const baseRepoPath = getPathToRepo(baseRepoName);
-  // const baseRepoDocsPath = path.join(baseRepoPath, 'docs');
   const baseRepoSrcPath = path.join(baseRepoPath, 'src');
 
+  const targetRepoName = 'vue-demo';
   const targetRepoPath = getPathToRepo(targetRepoName);
   const targetRepoSrcPath = path.join(targetRepoPath, 'demo');
 
   const baseRepoFilesToEdit = repositories[baseRepoName].filesToEdit;
   const targetRepoFilesToEdit = repositories[targetRepoName].filesToEdit;
-  // const targetRepoFilesToCopy = repositories[targetRepoName].filesToCopy;
 
   const zipName = `${VU_PRO}-${version}`;
 
@@ -44,7 +40,7 @@ const vuPro = async ({ version, lastVersionNumber, commitMessage }) => {
   let newTgzPackage = searchFileByExtension(baseRepoPath, '.tgz');
   copyFiles(newTgzPackage, baseRepoPath, targetRepoPath);
   deleteFiles(newTgzPackage, baseRepoPath);
-  // commitChanges(commitMessage, baseRepoName);
+  commitChanges(commitMessage, baseRepoName);
 
   replaceStringInFile(
     targetRepoFilesToEdit,
@@ -58,7 +54,8 @@ const vuPro = async ({ version, lastVersionNumber, commitMessage }) => {
 
   replaceStringInFile(['main.js'], targetRepoSrcPath, "import Notify from './components/pro/Advanced/Notify.js';", "import { Notify } from 'mdbvue';");
   replaceStringInFile(['main.js'], targetRepoSrcPath, "import '../build/css/mdb.css';", "import 'mdbvue/build/css/mdb.css';");
-  // commitChanges(commitMessage, targetRepoName);
+  replaceStringInFile(['HomePage.vue'], path.join(targetRepoPath, 'demo', 'docs'), "../assets/logo-mdb-vue-small.png", "../../src/assets/logo-mdb-vue-small.png");
+  commitChanges(commitMessage, targetRepoName);
 
   await createZip(targetRepoName, zipName);
 };

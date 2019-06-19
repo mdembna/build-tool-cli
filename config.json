@@ -3,7 +3,7 @@
     "vu-pro": {
       "url": "https://username:password@git.mdbootstrap.com/mdb/vue/vu-pro.git",
       "referenceBranch": "dev",
-      "workingBranch": "auto-build-test",
+      "workingBranch": "dev",
       "filesToEdit": [
         "README.md",
         "package.json"
@@ -12,7 +12,7 @@
     "Vue-Bootstrap-with-Material-Design": {
       "url": "https://github.com/mdbootstrap/Vue-Bootstrap-with-Material-Design",
       "referenceBranch": "master",
-      "workingBranch": "auto-build-test",
+      "workingBranch": "master",
       "dirToDelete": [
         "src/docs/pro/",
         "src/components/pro/"
@@ -44,7 +44,7 @@
     "vue-demo": {
       "url": "https://username:password@git.mdbootstrap.com/mdb/vue/vue-demo.git",
       "referenceBranch": "master",
-      "workingBranch": "auto-version-update",
+      "workingBranch": "master",
       "filesToEdit": [
         "README.md",
         "package.json"
@@ -57,7 +57,7 @@
     "mdbvue-admin-pro": {
       "url": "https://username:password@git.mdbootstrap.com/mdb/vue/mdbvue-admin-pro.git",
       "referenceBranch": "master",
-      "workingBranch": "auto-version-update",
+      "workingBranch": "master",
       "bumpVersion": [
         "package.json",
         "README.md"

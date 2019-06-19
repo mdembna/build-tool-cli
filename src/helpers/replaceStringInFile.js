@@ -13,10 +13,14 @@ const replaceStringInFile = (filesToEdit, dir, toBeReplaced, replacement) => {
       let oldData;
 
       if (file == "package.json") {
+
         oldData = JSON.stringify(data).replace(
-          new RegExp(`(?<=mdbvue-|\\\\"version\\\\": \\\\"|\\\\"mdbvue\\\": \\\\"|replace ')` + toBeReplaced, 'g'),
+          new RegExp(`(?<=mdbvue-|\\\\"version\\\\": \\\\"|replace ')` + toBeReplaced, 'g'),
           replacement
+        ).replace(
+          `\\"mdbvue\\": \\"${toBeReplaced}`, `\\"mdbvue\\": \\"${replacement}`
         );
+
       } else {
         oldData = JSON.stringify(data).replace(
           new RegExp(toBeReplaced, 'g'),

@@ -5,3 +5,4 @@ test/*
 !test/.test
 *.zip
 plugins/*
+!plugins/.plugins

@@ -29,6 +29,13 @@ const vuAdmin = async ({ version, lastVersionNumber }) => {
         version
     );
 
+    replaceStringInFile(
+        ["DatePicker.vue"],
+        path.join(targetRepoPath, 'mdbvue', 'src', 'components', 'pro', 'Forms'),
+        ".\/Input",
+        "..\/..\/Forms\/Input"
+    );
+
     build(path.join(targetRepoPath, 'mdbvue'));
 
     await createZip(targetRepoName, zipName);
