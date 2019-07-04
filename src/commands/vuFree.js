@@ -36,7 +36,7 @@ const vuFree = async ({ version, lastVersionNumber, commitMessage }) => {
     const removeProVue = /\<\!\-\- removeIf\(free\) \-\-\>.*?\<\!\-\- endRemoveIf\(free\) \-\-\>/g;
 
     //vu-pro
-    pullChanges(baseRepoName, 'dev', 'free');
+    pullChanges(baseRepoName, 'dev', 'free', true);
     deleteFiles(dirToDelete, baseRepoPath);
     //removing pro imports
     replaceStringInFile(

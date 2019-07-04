@@ -6,13 +6,13 @@ const { SUCCESS } = require('../constans/log-types');
 const deleteFiles = require('../helpers/deleteFiles');
 
 
-const pullChanges = (repoName, referenceBranch, workingBranch) => {
+const pullChanges = (repoName, referenceBranch, workingBranch, theirs) => {
     const repoPath = getPathToRepo(repoName);
     try {
         cd(repoPath);
         exec(`git checkout ${workingBranch} || git checkout -b ${workingBranch}`);
         exec(`git pull`);
-        exec(`git pull origin ${referenceBranch}`);
+        exec(`git pull ${theirs ? '-s recursive -X theirs' : ''}origin ${referenceBranch}`);
         log(`Repo ${repoName} up to date, on branch ${workingBranch}`, SUCCESS)
     } catch (err) {
         log(`An error occurred while updating repos ⚠️`, ERROR);
